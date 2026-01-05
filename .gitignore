@@ -1,0 +1,34 @@
+# IDEs y Editores
+.vscode/
+.idea/
+*.swp
+*.sublime-project
+*.sublime-workspace
+
+# Sistema Operativo
+.DS_Store
+Thumbs.db
+
+# Configuración local (¡Vital para seguridad!)
+.env
+.env.backup
+.env.production
+
+# Carpetas de dependencias (se crearán al instalar Laravel)
+/vendor/
+/node_modules/
+/public/storage
+/storage/*.key
+/bootstrap/cache/*
+
+# Logs y Temporales
+/storage/logs/*
+!/storage/logs/.gitignore
+/storage/framework/cache/data/*
+!/storage/framework/cache/data/.gitignore
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitignore
+/storage/framework/testing/*
+!/storage/framework/testing/.gitignore
+/storage/framework/views/*
+!/storage/framework/views/.gitignore
