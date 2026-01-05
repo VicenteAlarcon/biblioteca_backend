@@ -11,11 +11,19 @@ use Illuminate\Http\RedirectResponse;
 
 class BookController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $books = Book::with('category')->latest()->paginate(10);
+       $query = Book::query();
 
-        return view('books.index', compact('books'));
+    // Si el usuario escribió algo en el buscador
+    if ($request->has('search')) {
+        $query->where('title', 'like', '%' . $request->search . '%')
+              ->orWhere('author', 'like', '%' . $request->search . '%');
+    }
+
+    $books = $query->with('category')->get();
+    
+    return view('books.index', compact('books'));
     }
 
     public function create()
@@ -45,5 +53,13 @@ public function update(UpdateBookRequest $request, Book $book): RedirectResponse
 
     return redirect()->route('books.index')
         ->with('success', 'Libro actualizado con éxito.');
+}
+
+public function destroy(Book $book): RedirectResponse
+{
+    $book->delete();
+
+    return redirect()->route('books.index')
+    ->with('success', 'Libro eliminado correctamente.');
 }
 }
